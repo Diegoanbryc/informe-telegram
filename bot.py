@@ -22,7 +22,8 @@ def main():
         "text": message,
     }
 
-    message_url = BOT_URL + 'sendMessage'
+    message_url = BOT_URL + "Esto es una prueba"
+    #'sendMessage'
     requests.post(message_url, json=json_data)
 
     return ''
