@@ -2,6 +2,9 @@
 import requests  
 import os
 from flask import Flask, request
+from telegram.ext import Updater, CommandHandler
+import requests
+import re
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot809561101:AAFiwB9lCLotI20CeP82B5JjGGhw6pxue18/'
 
