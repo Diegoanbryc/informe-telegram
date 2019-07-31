@@ -10,4 +10,4 @@ MarkupSafe
 pyTelegramBotAPI
 six
 urllib3
-Wekzeug
+
