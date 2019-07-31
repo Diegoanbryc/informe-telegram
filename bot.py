@@ -10,6 +10,14 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['POST'])
+
+def start_callback(update, context):
+    update.message.reply_text("Welcome to my awesome bot!")
+
+
+
+dispatcher.add_handler(CommandHandler("start", start_callback))
+
 def main():  
     data = request.json
 
