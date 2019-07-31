@@ -4,17 +4,17 @@ import os
 from flask import Flask, request
 import telebot
 
-TOKEN = "BOT_KEY"
+TOKEN = '809561101:AAFiwB9lCLotI20CeP82B5JjGGhw6pxue18'
 
 bot = telebot.TeleBot(TOKEN)
 # Add your telegram token as environment variable
-BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
+#BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 
-@app.route('/', methods=['POST'])
+#@app.route('/', methods=['POST'])
 
 #def main():  
 #    data = request.json
@@ -60,6 +60,6 @@ while True: # Don't let the main Thread end.
 #####################################################################################################
           
             
-if __name__ == '__main__':  
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+#f __name__ == '__main__':  
+#    port = int(os.environ.get('PORT', 5000))
+#    app.run(host='0.0.0.0', port=port, debug=True)
