@@ -4,7 +4,7 @@ import os
 from flask import Flask, request
 import telebot
 
-TOKEN = '"BOT_KEY"'
+TOKEN = "BOT_KEY"
 
 bot = telebot.TeleBot(TOKEN)
 # Add your telegram token as environment variable
