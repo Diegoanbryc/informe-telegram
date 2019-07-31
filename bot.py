@@ -24,7 +24,7 @@ def main():
 
     message_url = BOT_URL + 'sendMessage'
     requests.post(message_url, json=json_data)
-
+print("esto es una prueba ")
     return ''
 
 
