@@ -24,7 +24,7 @@ def main():
 
     message_url = BOT_URL + 'sendchatid'
     requests.post(message_url, json=json_data)
-
+ print(message_url)
     return ''
 
 
