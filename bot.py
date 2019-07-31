@@ -22,7 +22,7 @@ def main():
         "text": message,
     }
 
-    message_url = BOT_URL + 'data['id']'
+    message_url = BOT_URL + data['id']
     requests.post(message_url, json=json_data)
 
     return ''
