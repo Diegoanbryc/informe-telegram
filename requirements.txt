@@ -1,2 +1,13 @@
 requests
 flask
+certifi
+chardet
+Click
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+pyTelegramBotAPI
+six
+urllib3
+Wekzeug
