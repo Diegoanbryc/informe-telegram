@@ -1,7 +1,7 @@
 # bot.py
 import telebot
 
-bot = telebot.TeleBot("TOKEN")
+bot = telebot.TeleBot("BOT_KEY")
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
