@@ -21,7 +21,7 @@ def main():
     json_data = {
     "chat_id": chat_id,
     # "text": message,
-    if data['text'] == "hola":
+    if "text" == "hola":
        "text": "Hola bienvenido",
     else:
        "text": message,
@@ -38,4 +38,3 @@ def main():
 if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-
