@@ -17,8 +17,10 @@ def main():
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 
-    if message == "Hola":
+    if message == "Informe":
         print("Entro al if")
+        else:
+            print("ENtro al ELSE")
         
     json_data = {
     "chat_id": chat_id
