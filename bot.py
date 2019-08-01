@@ -17,13 +17,18 @@ def main():
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 
+if message == "hola":
     json_data = {
         "chat_id": chat_id,
        # "text": message,
-        if message == "hola":
         "text": "Hola bienvenido",
-        else:
+    }
+
+else:
+ json_data = {
+        "chat_id": chat_id,
         "text": message,
+        
     }
 
     message_url = BOT_URL + 'sendMessage'
