@@ -17,13 +17,13 @@ def main():
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 
-    if message == "Informe":
+    if message == "Informe" or message == "informe":
         print("Entro al if")
-        json_data = {"chat_id": chat_id, "text": "Se encuentran trabajos atrasados de: ",}
-    elif message == "Hola":
-        json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de atrasos en el laboratorio",}
+        json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
+    elif message == "Hola" or message =="hola":
+        json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
     else:
-        json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de atrasos en el laboratorio",}
+        json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
         
    
 
