@@ -17,18 +17,17 @@ def main():
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 	
-    if message == "hola":
+   
     json_data = {
     "chat_id": chat_id,
     # "text": message,
+    if message == "hola":
     "text": "Hola bienvenido",
-    }
-
     else:
-    json_data = {
-    "chat_id": chat_id,
     "text": message,
     }
+
+   
 
     message_url = BOT_URL + 'sendMessage'
     requests.post(message_url, json=json_data)
@@ -39,5 +38,6 @@ def main():
 if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
 
 
