@@ -19,13 +19,13 @@ def main():
 
     if message == "Informe":
         print("Entro al if")
+        json_data = {"chat_id": chat_id, "text": "Se encuentran trabajos atrasados de: ",}
+    elif message == "Hola":
+        json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de atrasos en el laboratorio",}
     else:
-        print("ENtro al ELSE")
+        json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de atrasos en el laboratorio",}
         
-    json_data = {
-    "chat_id": chat_id
-    # "text": message,
-    }
+   
 
    
 
