@@ -19,12 +19,12 @@ def main():
 	
    
     json_data = {
-    "chat_id": chat_id,
+    "chat_id": chat_id
     # "text": message,
     if message.text == "hola":
-       "text": "Hola bienvenido",
+       "text": "Hola bienvenido"
     else:
-       "text": message,
+       "text": message
     }
 
    
