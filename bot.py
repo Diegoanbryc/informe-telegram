@@ -28,7 +28,6 @@ else:
  json_data = {
         "chat_id": chat_id,
         "text": message,
-        
     }
 
     message_url = BOT_URL + 'sendMessage'
