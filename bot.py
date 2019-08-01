@@ -20,7 +20,7 @@ def main():
     if message == "Informe":
         print("Entro al if")
         else:
-            print("ENtro al ELSE")
+        print("ENtro al ELSE")
         
     json_data = {
     "chat_id": chat_id
