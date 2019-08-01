@@ -20,7 +20,10 @@ def main():
     json_data = {
         "chat_id": chat_id,
        # "text": message,
+        if message == "hola":
         "text": "Hola bienvenido",
+        else:
+        "text": message,
     }
 
     message_url = BOT_URL + 'sendMessage'
