@@ -21,7 +21,7 @@ def main():
     json_data = {
     "chat_id": chat_id,
     # "text": message,
-    if "text" == "hola":
+    if message == "hola":
        "text": "Hola bienvenido",
     else:
        "text": message,
