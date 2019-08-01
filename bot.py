@@ -19,7 +19,7 @@ def main():
 
     if message == "Informe":
         print("Entro al if")
-        else:
+    else:
         print("ENtro al ELSE")
         
     json_data = {
