@@ -17,7 +17,9 @@ def main():
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 
-    print(message)	
+    if message == "Hola":
+        print("Entro al if")
+        
     json_data = {
     "chat_id": chat_id
     # "text": message,
