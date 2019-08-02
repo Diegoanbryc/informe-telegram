@@ -7,6 +7,21 @@ from flask import Flask, request
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
+db = MySQLdb.connect("sql10.freemysqlhosting.net", "sql10282729", 
+                     "haM6SHtrmF", "sql10282729")
+cursor = db.cursor() 
+
+try:
+    cursor.execute("SELECT VERSION()")
+    results = cursor.fetchone()
+    # Check if anything at all is returned
+    if results:
+        return True
+    else:
+        return False               
+except MySQLdb.Error, e:
+    print "ERROR %d IN CONNECTION: %s" % (e.args[0], e.args[1])
+return False
 
 app = Flask(__name__)
 
@@ -22,7 +37,7 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-        subprocess.call(["php", "consultaexterna.php"])
+        #subprocess.call(["php", "consultaexterna.php"])
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
     else:
