@@ -1,2 +1,2 @@
 web: python bot.py
-web: php consultaexterna.php
+web: vendor/bin/heroku-php-apache2 consultaexterna.php
