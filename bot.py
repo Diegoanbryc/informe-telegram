@@ -1,4 +1,5 @@
 # bot.py
+import consultaexterna.php
 import subprocess
 import requests  
 import os
