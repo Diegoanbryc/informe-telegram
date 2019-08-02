@@ -22,7 +22,7 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-        subprocess.call(["php", "./consultaexterna.php"])
+        subprocess.call(["php", "https://github.com/Diegoanbryc/informe-telegram/blob/master/consultaexterna.php"])
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
     else:
