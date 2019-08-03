@@ -10,4 +10,6 @@ MarkupSafe
 pyTelegramBotAPI
 six
 urllib3
+mysql-connector-python
+mysql
 
