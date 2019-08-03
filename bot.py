@@ -20,8 +20,8 @@ cursor = db.cursor()
 cursor.execute("SELECT VERSION()")
 
 # Fetch a single row using fetchone() method.
-data = cursor.fetchone()
-print "Database version : %s " % data
+data2 = cursor.fetchone()
+print ("Database version : %s "+ data2)
 
 # disconnect from server
 db.close()
