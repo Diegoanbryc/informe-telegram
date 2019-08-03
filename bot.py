@@ -21,7 +21,8 @@ cursor.execute("SELECT VERSION()")
 
 # Fetch a single row using fetchone() method.
 data2 = cursor.fetchone()
-print (data2)
+print("Conecto al servidor con version:")
+print(data2)
 
 # disconnect from server
 db.close()
