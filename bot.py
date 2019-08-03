@@ -21,11 +21,10 @@ cursor.execute("SELECT VERSION()")
 
 # Fetch a single row using fetchone() method.
 data2 = cursor.fetchone()
-print("Conecto al servidor con version:")
+print("Conecto a la base de datos externa:")
 print(data2)
 
-# disconnect from server
-db.close()
+sql = "select * from Estadodellab"
 
 
 @app.route('/', methods=['POST'])
@@ -39,7 +38,9 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-
+        cursor.execute(sql)
+        dataselect = cursor.fetchone()
+        print(dataselect)
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
     else:
