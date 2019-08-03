@@ -22,6 +22,8 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
+        cmd = ["php", "./consultaexterna.php"]
+        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         #subprocess.call(["php", "consultaexterna.php"])
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
