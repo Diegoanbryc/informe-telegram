@@ -1,1 +1,2 @@
-web: python bot.py, php consultaexterna.php
+web: python bot.py 
+web: php consultaexterna.php
