@@ -1,5 +1,6 @@
 # bot.py
-
+import mysql.connector
+from mysql.connector import Error
 import subprocess
 import requests  
 import os
@@ -7,21 +8,27 @@ from flask import Flask, request
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
-db = MySQLdb.connect("sql10.freemysqlhosting.net", "sql10282729", 
-                     "haM6SHtrmF", "sql10282729")
-cursor = db.cursor() 
 
 try:
-    cursor.execute("SELECT VERSION()")
-    results = cursor.fetchone()
-    # Check if anything at all is returned
-    if results:
-        return True
-    else:
-        return False               
-except MySQLdb.Error, e:
-    print "ERROR %d IN CONNECTION: %s" % (e.args[0], e.args[1])
-return False
+    connection = mysql.connector.connect(host='sql10.freemysqlhosting.net',
+                             database='sql10282729',
+                             user='sql10282729',
+                             password='haM6SHtrmF')
+    if connection.is_connected():
+       db_Info = connection.get_server_info()
+       print("Connected to MySQL database... MySQL Server version on ",db_Info)
+       cursor = connection.cursor()
+       cursor.execute("select database();")
+       record = cursor.fetchone()
+       print ("Your connected to - ", record)
+except Error as e :
+    print ("Error while connecting to MySQL", e)
+finally:
+    #closing database connection.
+    if(connection.is_connected()):
+        cursor.close()
+        connection.close()
+        print("MySQL connection is closed")
 
 app = Flask(__name__)
 
