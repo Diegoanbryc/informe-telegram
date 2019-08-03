@@ -1,6 +1,5 @@
 # bot.py
-import mysql.connector
-from mysql.connector import Error
+
 import subprocess
 import requests  
 import os
@@ -9,26 +8,28 @@ from flask import Flask, request
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 
+import psycopg2
 try:
-    connection = mysql.connector.connect(host='sql10.freemysqlhosting.net',
-                             database='sql10282729',
-                             user='sql10282729',
-                             password='haM6SHtrmF')
-    if connection.is_connected():
-       db_Info = connection.get_server_info()
-       print("Connected to MySQL database... MySQL Server version on ",db_Info)
-       cursor = connection.cursor()
-       cursor.execute("select database();")
-       record = cursor.fetchone()
-       print ("Your connected to - ", record)
-except Error as e :
-    print ("Error while connecting to MySQL", e)
+    connection = psycopg2.connect(user = "sysadmin",
+                                  password = "pynative@#29",
+                                  host = "127.0.0.1",
+                                  port = "5432",
+                                  database = "postgres_db")
+    cursor = connection.cursor()
+    # Print PostgreSQL Connection properties
+    print ( connection.get_dsn_parameters(),"\n")
+    # Print PostgreSQL version
+    cursor.execute("SELECT version();")
+    record = cursor.fetchone()
+    print("You are connected to - ", record,"\n")
+except (Exception, psycopg2.Error) as error :
+    print ("Error while connecting to PostgreSQL", error)
 finally:
     #closing database connection.
-    if(connection.is_connected()):
-        cursor.close()
-        connection.close()
-        print("MySQL connection is closed")
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
 app = Flask(__name__)
 
