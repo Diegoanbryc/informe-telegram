@@ -1,5 +1,5 @@
 # bot.py
-
+import MySQLdb
 import subprocess
 import requests  
 import os
