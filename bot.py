@@ -39,8 +39,18 @@ def main():
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
         cursor.execute(sql)
-        dataselect = cursor.fetchone()
-        print(dataselect)
+        dataselect = cursor.fetchall()
+        print("Total number of rows in python_developers is - ", cursor.rowcount)
+        print ("Printing each row's column values i.e.  developer record")
+   for row in dataselect:
+  
+       print("Cantidad de trabajos = ", row[0], )
+       print("Fecha calculado = ", row[1])
+       print("Dias calendario  = ", row[2])
+       print("Dias de proceso  = ", row[3], "\n")
+   cursor.close()
+        
+        
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
     else:
