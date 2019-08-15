@@ -39,17 +39,19 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
+        json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha    | Días de atraso   |: ",}
         cursor.execute(sql)
         dataselect = cursor.fetchall()
-        print("Total number of rows in python_developers is - ", cursor.rowcount)
-        print ("Printing each row's column values i.e.  developer record")
         for row in dataselect:
             print("Cantidad de trabajos = ", row[0], )
             print("Día = ", row[1])
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
+            json_data = {"chat_id": chat_id, ("text": "|"row[0]" | Día     | Fecha    | Días de atraso   |: "),}
             cursor.close()
+            
+            
         
         
     elif message == "Hola" or message =="hola":
