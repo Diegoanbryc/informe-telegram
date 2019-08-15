@@ -72,7 +72,7 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-    elif message.startswith( '/20' )
+    elif message.startswith( '/20' ):
         fechaconsulta = datetime.strptime(message, '/%y_%m_%d')
         print("Va a consultar los trabajos con fecha de:", fechaconsulta)
     else:
