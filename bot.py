@@ -49,7 +49,8 @@ def main():
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
-            cursor.close()
+            
+        cursor.close()
             
             
         
