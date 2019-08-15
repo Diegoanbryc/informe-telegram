@@ -39,7 +39,7 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-        json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha    | Días de atraso   |: ",}
+        json_data = {"chat_id": chat_id, "text": "|Cantidad   | Día     | Fecha Calculado| Días de atraso   |: ",}
         cursor.execute(sql)
         dataselect = cursor.fetchall()
         for row in dataselect:
@@ -48,7 +48,7 @@ def main():
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
-            json_data = {"chat_id": chat_id, ("text": "|"row[0]" | Día     | Fecha    | Días de atraso   |: "),}
+            json_data = {"chat_id": chat_id, "text": "|"+row[0]+"|"+row[1]+"|"+row[2]+"|"+row[4]+"|",}
             cursor.close()
             
             
