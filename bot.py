@@ -39,16 +39,16 @@ def main():
     if message == "Informe" or message == "informe":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-        json_data = {"chat_id": chat_id, "text": "|Cantidad   | Día     | Fecha Calculado| Días de atraso   |: ",}
         cursor.execute(sql)
         dataselect = cursor.fetchall()
+        json_data = {"chat_id": chat_id, "text": "|Cantidad   | Día     | Fecha Calculado| Días de atraso   |: ",}
         for row in dataselect:
+            json_data = {"chat_id": chat_id, "text": "|"+str(row[0])+"|"+str(row[1])+"|"+str(row[2])+"|"+str(row[4])+"|",}
             print("Cantidad de trabajos = ", row[0], )
             print("Día = ", row[1])
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
-            json_data = {"chat_id": chat_id, "text": "|"+str(row[0])+"|"+str(row[1])+"|"+str(row[2])+"|"+str(row[4])+"|",}
             cursor.close()
             
             
