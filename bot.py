@@ -73,7 +73,7 @@ def main():
         requests.post(message_url, json=json_data)
         
     elif message.startswith( '/20' ):
-        fechaconsulta = datetime.strptime(message, '/%y_%m_%d')
+        fechaconsulta = message.strptime("/%y_%m_%d")
         print("Va a consultar los trabajos con fecha de:", fechaconsulta)
     else:
         json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
