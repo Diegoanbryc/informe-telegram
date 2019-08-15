@@ -4,6 +4,7 @@ import MySQLdb
 import subprocess
 import requests  
 import os
+from datetime import datetime
 from flask import Flask, request
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
@@ -73,7 +74,7 @@ def main():
         requests.post(message_url, json=json_data)
         
     elif message.startswith( '/20' ):
-        fechaconsulta = message.strptime("/%y_%m_%d")
+        fechaconsulta = datetime.strptime(message,'/%y_%m_%d')
         print("Va a consultar los trabajos con fecha de:", fechaconsulta)
     else:
         json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
