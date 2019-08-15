@@ -60,7 +60,7 @@ def main():
             print("Dias de proceso  = ", row[4], "\n")
             #time.sleep(3)
             
-        json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta Sábados ni Domingos, Ahora selecciona el día de atraso con / ,para obtener información de los trabajos de esa fecha",}
+        json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta ni Sábados ni Domingos, Ahora selecciona la fecha de realizado el cálculo, para obtener información de los trabajos de esa fecha.",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)        
             
