@@ -48,7 +48,7 @@ def main():
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
-            json_data = {"chat_id": chat_id, "text": "|"+row[0]+"|"+row[1]+"|"+row[2]+"|"+row[4]+"|",}
+            json_data = {"chat_id": chat_id, "text": "|"+str(row[0])+"|"+str(row[1])+"|"+str(row[2])+"|"+str(row[4])+"|",}
             cursor.close()
             
             
