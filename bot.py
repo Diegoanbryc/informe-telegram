@@ -50,7 +50,7 @@ def main():
         requests.post(message_url, json=json_data)
        # time.sleep(3)
         for row in dataselect:
-            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  "+str("/"+str(row[2]))+"   |  "+str(row[4])+"      |",}
+            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  "+str(row[2])+"   |  /"+str(row[4])+"      |",}
             message_url = BOT_URL + 'sendMessage'
             requests.post(message_url, json=json_data)
             print("Cantidad de trabajos = ", row[0], )
@@ -60,7 +60,7 @@ def main():
             print("Dias de proceso  = ", row[4], "\n")
             #time.sleep(3)
             
-        json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta Sábados ni Domingos, Ahora selecciona la fecha con el / para obtener información de los trabajos",}
+        json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta Sábados ni Domingos, Ahora selecciona el día de atraso con / ,para obtener información de los trabajos de esa fecha",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)        
             
@@ -71,6 +71,7 @@ def main():
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
+        
     else:
         json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
         message_url = BOT_URL + 'sendMessage'
