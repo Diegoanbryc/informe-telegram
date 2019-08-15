@@ -45,12 +45,12 @@ def main():
         cursor.execute(sql)
         dataselect = cursor.fetchall()
        # time.sleep(3)
-        json_data = {"chat_id": chat_id, "text": "|Cantidad   | Día     | Fecha Calculado| Días de atraso   |: ",}
+        json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso   |: ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
        # time.sleep(3)
         for row in dataselect:
-            json_data = {"chat_id": chat_id, "text": "|"+str(row[0])+"|"+str(row[1])+"|"+str(row[2])+"|"+str(row[4])+"|",}
+            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"   | "+str(row[1])+" |  "+str(row[2])+"  |  "+str(row[4])+"     |",}
             message_url = BOT_URL + 'sendMessage'
             requests.post(message_url, json=json_data)
             print("Cantidad de trabajos = ", row[0], )
@@ -66,12 +66,16 @@ def main():
         
     elif message == "Hola" or message =="hola":
         json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)
     else:
         json_data = {"chat_id": chat_id, "text": "Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)
         
 
    
-
+           
   
     
     return ''
