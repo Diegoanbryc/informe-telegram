@@ -50,7 +50,7 @@ def main():
         requests.post(message_url, json=json_data)
        # time.sleep(3)
         for row in dataselect:
-            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  "+str(row[2])+"   |  /"+str(row[4])+"      |",}
+            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  /"+str(row[2].strftime("%Y_%m_%d"))+"   |  /"+str(row[4])+"      |",}
             message_url = BOT_URL + 'sendMessage'
             requests.post(message_url, json=json_data)
             print("Cantidad de trabajos = ", row[0], )
