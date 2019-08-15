@@ -1,4 +1,5 @@
 # bot.py
+import time
 import MySQLdb
 import subprocess
 import requests  
@@ -41,7 +42,9 @@ def main():
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
         cursor.execute(sql)
         dataselect = cursor.fetchall()
+        time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cantidad   | Día     | Fecha Calculado| Días de atraso   |: ",}
+        time.sleep(3)
         for row in dataselect:
             json_data = {"chat_id": chat_id, "text": "|"+str(row[0])+"|"+str(row[1])+"|"+str(row[2])+"|"+str(row[4])+"|",}
             print("Cantidad de trabajos = ", row[0], )
@@ -49,7 +52,7 @@ def main():
             print("Fecha calculado = ", row[2])
             print("Dias calendario  = ", row[3])
             print("Dias de proceso  = ", row[4], "\n")
-            
+            time.sleep(3)
         cursor.close()
             
             
