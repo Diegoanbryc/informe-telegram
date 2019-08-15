@@ -42,13 +42,12 @@ def main():
         dataselect = cursor.fetchall()
         print("Total number of rows in python_developers is - ", cursor.rowcount)
         print ("Printing each row's column values i.e.  developer record")
-   for row in dataselect:
-  
-       print("Cantidad de trabajos = ", row[0], )
-       print("Fecha calculado = ", row[1])
-       print("Dias calendario  = ", row[2])
-       print("Dias de proceso  = ", row[3], "\n")
-   cursor.close()
+        for row in dataselect:
+            print("Cantidad de trabajos = ", row[0], )
+            print("Fecha calculado = ", row[1])
+            print("Dias calendario  = ", row[2])
+            print("Dias de proceso  = ", row[3], "\n")
+            cursor.close()
         
         
     elif message == "Hola" or message =="hola":
