@@ -24,7 +24,8 @@ data2 = cursor.fetchone()
 print("Conecto a la base de datos externa:")
 print(data2)
 
-sql = "select count(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate)"
+sql = "select count(date(OrderDate)),DAYNAME(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate)
+"
 
 
 @app.route('/', methods=['POST'])
@@ -44,9 +45,10 @@ def main():
         print ("Printing each row's column values i.e.  developer record")
         for row in dataselect:
             print("Cantidad de trabajos = ", row[0], )
-            print("Fecha calculado = ", row[1])
-            print("Dias calendario  = ", row[2])
-            print("Dias de proceso  = ", row[3], "\n")
+            print("Día = ", row[1])
+            print("Fecha calculado = ", row[2])
+            print("Dias calendario  = ", row[3])
+            print("Dias de proceso  = ", row[4], "\n")
             cursor.close()
         
         
