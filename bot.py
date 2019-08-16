@@ -27,7 +27,7 @@ data2 = cursor.fetchone()
 print("Conecto a la base de datos externa:")
 print(data2)
 cursor.execute("SET lc_time_names = 'es_ES'")
-sql = ("select count(date(OrderDate)),DAYNAME(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate)")
+sql = "select count(date(OrderDate)),DAYNAME(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate)"
 
 
 @app.route('/', methods=['POST'])
@@ -84,10 +84,10 @@ def main():
 
    
            
-  
+    
     
     return ''
-
+    cursor.close()
 
 if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
