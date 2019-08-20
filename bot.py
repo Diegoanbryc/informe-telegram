@@ -94,9 +94,9 @@ def main():
             print("Nr Orden = ", row2[1])
             print("Gaveta = ", row2[2])
             print("Estado  = ", row2[3], "\n")
-           json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"      | "+str(row2[1])+"   |  "+str(row2[2])+"   |  "+str(row2[3])+"      |",}
-           message_url = BOT_URL + 'sendMessage'
-           requests.post(message_url, json=json_data)
+            json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"      | "+str(row2[1])+"   |  "+str(row2[2])+"   |  "+str(row2[3])+"      |",}
+            message_url = BOT_URL + 'sendMessage'
+            requests.post(message_url, json=json_data)
         
         
         
