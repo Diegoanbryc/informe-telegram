@@ -81,7 +81,7 @@ def main():
         json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
-        a=fechaconsulta.strftime("/%Y-%m-%d")
+        a=fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%"
         cursor.execute(sqlinfofecha.format(a))
         infofecha = cursor.fetchall()
        # time.sleep(3)
