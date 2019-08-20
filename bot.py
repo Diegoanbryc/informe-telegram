@@ -82,7 +82,7 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-        cursor.execute(sqlinfofecha,("2018-08-17%")
+        cursor.execute(sqlinfofecha,("2018-08-17%"))
         infofecha = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.|: ",}
