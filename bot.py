@@ -6,6 +6,7 @@ import requests
 import os
 from datetime import datetime
 from flask import Flask, request
+MySQLdb.paramstyle 'format'
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
@@ -80,7 +81,7 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-        cursor.execute(sqlinfofecha,fechaconsulta.strftime("'%Y-%m-%d%'"))
+        cursor.execute(sqlinfofecha,(fechaconsulta.strftime("'%Y-%m-%d%'")))
         infofecha = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.|: ",}
