@@ -76,11 +76,11 @@ def main():
     elif message.startswith( '/20' ):
         fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
         print("Va a consultar los trabajos con fecha de:", fechaconsulta)
-        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha"+message+": ",}
+        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-        cursor.execute(sqlinfofecha,fechaconsulta)
+        cursor.execute(sqlinfofecha,fechaconsulta.strftime("%Y/%m/%d"))
         infofecha = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.|: ",}
