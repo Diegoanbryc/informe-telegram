@@ -85,7 +85,7 @@ def main():
         cursor.execute(sqlinfofecha.format(a))
         infofecha = cursor.fetchall()
        # time.sleep(3)
-        json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.|: ",}
+        json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
        # time.sleep(3)
@@ -94,7 +94,7 @@ def main():
             print("Nr Orden = ", row[1])
             print("Gaveta = ", row[2])
             print("Estado  = ", row[3], "\n")
-           json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  /"+str(row[2].strftime("%Y_%m_%d"))+"   |  "+str(row[4]-1)+"      |",}
+           json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  "+str(row[2])+"   |  "+str(row[3])+"      |",}
            message_url = BOT_URL + 'sendMessage'
            requests.post(message_url, json=json_data)
         
