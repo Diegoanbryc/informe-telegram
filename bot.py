@@ -8,7 +8,7 @@ from datetime import datetime
 from flask import Flask, request
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
-$fechaconsulta='';
+
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ print("Conecto a la base de datos externa:")
 print(data2)
 cursor.execute("SET lc_time_names = 'es_ES'")
 sql = "select count(date(OrderDate)),DAYNAME(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate)"
-sqlinfofecha ="select OrderID, CommNr, TrayNumber, CASE WHEN Status = 0 THEN 'Tilaus vastaanote' WHEN Status = 1 THEN 'Rx entrysuccessfull' WHEN Status = 2 THEN "Out of Stock" WHEN Status = 3 THEN 'In calculation' WHEN Status = 4 THEN 'Waiting for Information' WHEN Status = 5 THEN 'Waiting for frame' WHEN Status = 6 THEN 'Recoger en Stock' WHEN Status = 7 THEN 'Tuotannossa' WHEN Status = 8 THEN 'ALLOY BLOCKER' WHEN Status = 9 THEN 'FREEFORM GENERATOR' WHEN Status = 10 THEN 'FREEFORM POLISH' WHEN Status = 11 THEN 'Conventional RX' WHEN Status = 12 THEN 'LASER' WHEN Status = 13 THEN 'Control de Calidad' WHEN Status = 14 THEN 'Hard Coating' WHEN Status = 15 THEN 'Hard Coating' WHEN Status = 16 THEN 'Entra a AR' WHEN Status = 17 THEN 'Bisel previo a AR' WHEN Status = 18 THEN 'Bisel' WHEN Status = 19 THEN 'Bisel Final' WHEN Status = 20 THEN 'Sale de AR' WHEN Status = 21 THEN 'Control Final' WHEN Status = 22 THEN 'Enviados' WHEN Status = 23 THEN 'Factura' WHEN Status = 24 THEN 'Cancelled' WHEN Status = -2 THEN 'Error' WHEN Status = 25 THEN 'Desbloqueo' ELSE 'No aparece estado en el laboratorio' END AS Estado FROM Estadodellab where OrderDate like '$fechaconsulta%';" 
+sqlinfofecha ="select OrderID, CommNr, TrayNumber, CASE WHEN Status = 0 THEN 'Tilaus vastaanote' WHEN Status = 1 THEN 'Rx entrysuccessfull' WHEN Status = 2 THEN "Out of Stock" WHEN Status = 3 THEN 'In calculation' WHEN Status = 4 THEN 'Waiting for Information' WHEN Status = 5 THEN 'Waiting for frame' WHEN Status = 6 THEN 'Recoger en Stock' WHEN Status = 7 THEN 'Tuotannossa' WHEN Status = 8 THEN 'ALLOY BLOCKER' WHEN Status = 9 THEN 'FREEFORM GENERATOR' WHEN Status = 10 THEN 'FREEFORM POLISH' WHEN Status = 11 THEN 'Conventional RX' WHEN Status = 12 THEN 'LASER' WHEN Status = 13 THEN 'Control de Calidad' WHEN Status = 14 THEN 'Hard Coating' WHEN Status = 15 THEN 'Hard Coating' WHEN Status = 16 THEN 'Entra a AR' WHEN Status = 17 THEN 'Bisel previo a AR' WHEN Status = 18 THEN 'Bisel' WHEN Status = 19 THEN 'Bisel Final' WHEN Status = 20 THEN 'Sale de AR' WHEN Status = 21 THEN 'Control Final' WHEN Status = 22 THEN 'Enviados' WHEN Status = 23 THEN 'Factura' WHEN Status = 24 THEN 'Cancelled' WHEN Status = -2 THEN 'Error' WHEN Status = 25 THEN 'Desbloqueo' ELSE 'No aparece estado en el laboratorio' END AS Estado FROM Estadodellab where OrderDate like '%s%';" 
 
 @app.route('/', methods=['POST'])
 def main():
@@ -74,13 +74,13 @@ def main():
         requests.post(message_url, json=json_data)
         
     elif message.startswith( '/20' ):
-        $fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
-        print("Va a consultar los trabajos con fecha de:", $fechaconsulta)
-        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha"+$fechaconsulta+": ",}
+        fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
+        print("Va a consultar los trabajos con fecha de:", fechaconsulta)
+        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha"+fechaconsulta+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-        cursor.execute(sqlinfofecha)
+        cursor.execute(sqlinfofecha,fechaconsulta)
         infofecha = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.|: ",}
