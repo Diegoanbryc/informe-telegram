@@ -15,7 +15,7 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 app = Flask(__name__)
 
 # Open database connection
-db = MySQLdb.connect("sql10.freemysqlhosting.net","sql10282729","haM6SHtrmF","sql10282729" )
+db = MySQLdb.connect("remotemysql.com","eJ10VkV0Jh","pCSRNFAXcF","eJ10VkV0Jh" )
 
 # prepare a cursor object using cursor() method
 cursor = db.cursor()
