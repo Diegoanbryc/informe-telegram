@@ -18,6 +18,7 @@ app = Flask(__name__)
 db = MySQLdb.connect("remotemysql.com","eJ10VkV0Jh","pCSRNFAXcF","eJ10VkV0Jh" )
 
 # prepare a cursor object using cursor() method
+db.ping(reconnect=False, attempts=1, delay=4)
 cursor = db.cursor()
 
 # execute SQL query using execute() method.
