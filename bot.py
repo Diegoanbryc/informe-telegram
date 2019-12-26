@@ -19,10 +19,10 @@ db = MySQLdb.connect("remotemysql.com","eJ10VkV0Jh","pCSRNFAXcF","eJ10VkV0Jh" )
 
 # prepare a cursor object using cursor() method
   # Check if connection was successful
-  if (db):
+if db:
     # Carry out normal procedure
     print("Connection successful")
-  else:
+else:
     # Terminate
     print("Connection unsuccessful")
 cursor = db.cursor()
