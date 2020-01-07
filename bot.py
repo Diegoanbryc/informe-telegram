@@ -109,15 +109,15 @@ def main():
                 message_url = BOT_URL + 'sendMessage'
                 requests.post(message_url, json=json_data)
                 a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
-                try:
-			cursor.execute(sqlinfofecha.format(a))
-			infofecha = cursor.fetchall()
-			# time.sleep(3)
-			json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
-			message_url = BOT_URL + 'sendMessage'
-			requests.post(message_url, json=json_data)
-			# time.sleep(3)
-			return None
+		try:
+		    cursor.execute(sqlinfofecha.format(a))
+		    infofecha = cursor.fetchall()
+		    # time.sleep(3)
+		    json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
+		    message_url = BOT_URL + 'sendMessage'
+		    requests.post(message_url, json=json_data)
+		    # time.sleep(3)
+		    return None
 		except (MySQLdb.Error, MySQLdb.Warning) as e:
 			print(e)
 			json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
