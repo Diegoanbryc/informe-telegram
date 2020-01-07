@@ -76,7 +76,7 @@ def main():
             json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta ni Sábados ni Domingos, Ahora selecciona la fecha de realizado el cálculo, para obtener información de los trabajos de esa fecha.",}
             message_url = BOT_URL + 'sendMessage'
             requests.post(message_url, json=json_data) 
-	    return None
+            return None
         except (MySQLdb.Error, MySQLdb.Warning) as e:
             print(e)
             json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
@@ -135,7 +135,7 @@ def main():
 					print("Conecto a la base de datos externa:")
 					print(data2)
 					return None
-				for row2 in infofecha:
+                                for row2 in infofecha:
 					print("Calculo = ", row2[0], )
 					print("Nr Orden = ", row2[1])
 					print("Gaveta = ", row2[2])
