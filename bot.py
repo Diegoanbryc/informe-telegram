@@ -25,6 +25,7 @@ if db:
 else:
     # Terminate
     print("Connection unsuccessful")
+
 cursor = db.cursor()
 # execute SQL query using execute() method.
 cursor.execute("SELECT VERSION()")
@@ -52,7 +53,26 @@ def main():
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
-        cursor.execute(sql)
+        try:
+            cursor.execute(sql)
+        # NB : you won't get an IntegrityError when reading
+        except (MySQLdb.Error, MySQLdb.Warning) as e:
+            print(e)
+            json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
+            message_url = BOT_URL + 'sendMessage'
+            requests.post(message_url, json=json_data)
+            cursor.close()
+            time.sleep(2)
+            cursor = db.cursor()
+            # execute SQL query using execute() method.
+            cursor.execute("SELECT VERSION()")
+
+
+            # Fetch a single row using fetchone() method.
+            data2 = cursor.fetchone()
+            print("Conecto a la base de datos externa:")
+            print(data2)
+            return None
         dataselect = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
