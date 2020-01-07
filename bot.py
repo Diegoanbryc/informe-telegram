@@ -109,40 +109,39 @@ def main():
                 message_url = BOT_URL + 'sendMessage'
                 requests.post(message_url, json=json_data)
                 a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
-				try:
-					cursor.execute(sqlinfofecha.format(a))
-					infofecha = cursor.fetchall()
-					# time.sleep(3)
-					json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
-					message_url = BOT_URL + 'sendMessage'
-					requests.post(message_url, json=json_data)
-					# time.sleep(3)
-					return None
-				except (MySQLdb.Error, MySQLdb.Warning) as e:
-					print(e)
-					json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
-					message_url = BOT_URL + 'sendMessage'
-					requests.post(message_url, json=json_data)
-					cursor.close()
-					time.sleep(2)
-					cursor = db.cursor()
-					# execute SQL query using execute() method.
-					cursor.execute("SELECT VERSION()")
-
-
-					# Fetch a single row using fetchone() method.
-					data2 = cursor.fetchone()
-					print("Conecto a la base de datos externa:")
-					print(data2)
-					return None
-                                for row2 in infofecha:
-					print("Calculo = ", row2[0], )
-					print("Nr Orden = ", row2[1])
-					print("Gaveta = ", row2[2])
-					print("Estado  = ", row2[3], "\n")
-					json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+" |  "+str(row2[2])+"  | "+str(row2[3])+"      |",}
-					message_url = BOT_URL + 'sendMessage'
-					requests.post(message_url, json=json_data)
+                try:
+			cursor.execute(sqlinfofecha.format(a))
+			infofecha = cursor.fetchall()
+			# time.sleep(3)
+			json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
+			message_url = BOT_URL + 'sendMessage'
+			requests.post(message_url, json=json_data)
+			# time.sleep(3)
+			return None
+		except (MySQLdb.Error, MySQLdb.Warning) as e:
+			print(e)
+			json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
+			message_url = BOT_URL + 'sendMessage'
+			requests.post(message_url, json=json_data)
+			cursor.close()
+			time.sleep(2)
+			cursor = db.cursor()
+			# execute SQL query using execute() method.
+			cursor.execute("SELECT VERSION()")
+			
+			# Fetch a single row using fetchone() method.
+			data2 = cursor.fetchone()
+			print("Conecto a la base de datos externa:")
+			print(data2)
+			return None
+		for row2 in infofecha:
+			print("Calculo = ", row2[0], )
+			print("Nr Orden = ", row2[1])
+			print("Gaveta = ", row2[2])
+			print("Estado  = ", row2[3], "\n")
+			json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+" |  "+str(row2[2])+"  | "+str(row2[3])+"      |",}
+			message_url = BOT_URL + 'sendMessage'
+			requests.post(message_url, json=json_data)			
 
             
             json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra informe, para mirar de nuevo el listado de informe general.",}
