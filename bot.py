@@ -49,56 +49,50 @@ def main():
     message = data['message']['text']
 
     if message == "Informe" or message == "informe":
-        print("Entro al if")
-        json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
-        message_url = BOT_URL + 'sendMessage'
-        requests.post(message_url, json=json_data)
-        cursor.execute(sql)
-        dataselect = cursor.fetchall()
-        time.sleep(3)
-	json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
-        message_url = BOT_URL + 'sendMessage'
+	print("Entro al if")
+	json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
+	message_url = BOT_URL + 'sendMessage'
 	requests.post(message_url, json=json_data)
-	# time.sleep(3)
+	cursor.execute(sql)
+	dataselect = cursor.fetchall()
+	time.sleep(3)
+	json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
+	message_url = BOT_URL + 'sendMessage'
+	requests.post(message_url, json=json_data)
 	for row in dataselect:
 	    print("Cantidad de trabajos = ", row[0], )
-            print("Día = ", row[1])
-            print("Fecha calculado = ", row[2])
-            print("Dias calendario  = ", row[3])
-            print("Dias de proceso  = ", row[4], "\n")
-            json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  /"+str(row[2].strftime("%Y_%m_%d"))+"   |  "+str(row[4])+"      |",}
-            message_url = BOT_URL + 'sendMessage'
-            requests.post(message_url, json=json_data)
-            #time.sleep(3)
-
-        json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta ni Sábados ni Domingos, Ahora selecciona la fecha de realizado el cálculo, para obtener información de los trabajos de esa fecha.",}
-        message_url = BOT_URL + 'sendMessage'
-        requests.post(message_url, json=json_data) 
-        
-        if (MySQLdb.Error || MySQLdb.Warning):
-            print(e)
-            json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
-            message_url = BOT_URL + 'sendMessage'
-            requests.post(message_url, json=json_data)
-            cursor.close()
-            time.sleep(2)
-            cursor = db.cursor()
-            # execute SQL query using execute() method.
-            cursor.execute("SELECT VERSION()")
-
-
-            # Fetch a single row using fetchone() method.
-            data2 = cursor.fetchone()
-            print("Conecto a la base de datos externa:")
-            print(data2)
+	    print("Día = ", row[1])
+	    print("Fecha calculado = ", row[2])
+	    print("Dias calendario  = ", row[3])
+	    print("Dias de proceso  = ", row[4], "\n")
+	    json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"      | "+str(row[1])+"   |  /"+str(row[2].strftime("%Y_%m_%d"))+"   |  "+str(row[4])+"      |",}
+	    message_url = BOT_URL + 'sendMessage'
+	    requests.post(message_url, json=json_data)
+	json_data = {"chat_id": chat_id, "text": "Los días de atraso no tienen en cuenta ni Sábados ni Domingos, Ahora selecciona la fecha de realizado el cálculo, para obtener información de los trabajos de esa fecha.",}
+	message_url = BOT_URL + 'sendMessage'
+	requests.post(message_url, json=json_data) 
+	
+	if (MySQLdb.Error || MySQLdb.Warning):
+	print(e)
+	message_url = BOT_URL + 'sendMessage'
+	requests.post(message_url, json=json_data)
+	cursor.close()
+	time.sleep(2)
+	cursor = db.cursor()
+	# execute SQL query using execute() method.
+	cursor.execute("SELECT VERSION()")
+	# Fetch a single row using fetchone() method.
+	data2 = cursor.fetchone()
+	print("Conecto a la base de datos externa:")
+	print(data2)
             
             
         
         
     elif message == "Hola" or message =="hola":
-	    json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
-        message_url = BOT_URL + 'sendMessage'
-        requests.post(message_url, json=json_data)
+	json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
+	message_url = BOT_URL + 'sendMessage'
+	requests.post(message_url, json=json_data)
         
     elif message.startswith( '/20' ):
 		fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
