@@ -57,7 +57,7 @@ def main():
             cursor.execute(sql)
             
             dataselect = cursor.fetchall()
-	    time.sleep(3)
+            time.sleep(3)
             json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
             message_url = BOT_URL + 'sendMessage'
             requests.post(message_url, json=json_data)
