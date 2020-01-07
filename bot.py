@@ -103,37 +103,37 @@ def main():
                 requests.post(message_url, json=json_data)
         
             elif message.startswith( '/20' ):
-                fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
-                print("Va a consultar los trabajos con fecha de:", fechaconsulta)
-                json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
-                message_url = BOT_URL + 'sendMessage'
-                requests.post(message_url, json=json_data)
-                a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
-		try:
-		    cursor.execute(sqlinfofecha.format(a))
-		    infofecha = cursor.fetchall()
-		    # time.sleep(3)
-		    json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
-		    message_url = BOT_URL + 'sendMessage'
-		    requests.post(message_url, json=json_data)
-		    # time.sleep(3)
-		    return None
-		except (MySQLdb.Error, MySQLdb.Warning) as e:
-			print(e)
-			json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
+			fechaconsulta = datetime.strptime(message,"/%Y_%m_%d").date()
+			print("Va a consultar los trabajos con fecha de:", fechaconsulta)
+			json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
 			message_url = BOT_URL + 'sendMessage'
 			requests.post(message_url, json=json_data)
-			cursor.close()
-			time.sleep(2)
-			cursor = db.cursor()
-			# execute SQL query using execute() method.
-			cursor.execute("SELECT VERSION()")
-			
-			# Fetch a single row using fetchone() method.
-			data2 = cursor.fetchone()
-			print("Conecto a la base de datos externa:")
-			print(data2)
-			return None
+			a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
+			try:
+				cursor.execute(sqlinfofecha.format(a))
+				infofecha = cursor.fetchall()
+				# time.sleep(3)
+				json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
+				message_url = BOT_URL + 'sendMessage'
+				requests.post(message_url, json=json_data)
+				# time.sleep(3)
+				return None
+			except (MySQLdb.Error, MySQLdb.Warning) as e:
+				print(e)
+				json_data = {"chat_id": chat_id, "text": "Error en la conexion con la base de datos, por favor intente mas tarde",}
+				message_url = BOT_URL + 'sendMessage'
+				requests.post(message_url, json=json_data)
+				cursor.close()
+				time.sleep(2)
+				cursor = db.cursor()
+				# execute SQL query using execute() method.
+				cursor.execute("SELECT VERSION()")
+				
+				# Fetch a single row using fetchone() method.
+				data2 = cursor.fetchone()
+				print("Conecto a la base de datos externa:")
+				print(data2)
+				return None
 		for row2 in infofecha:
 			print("Calculo = ", row2[0], )
 			print("Nr Orden = ", row2[1])
