@@ -97,7 +97,7 @@ def main():
             
         
         
-            elif message == "Hola" or message =="hola":
+            if message == "Hola" or message =="hola":
                 json_data = {"chat_id": chat_id, "text": "Hola, Por favor escriba la palabra: Informe, para dar el informe de trabajos presentes en el laboratorio",}
                 message_url = BOT_URL + 'sendMessage'
                 requests.post(message_url, json=json_data)
