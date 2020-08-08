@@ -14,6 +14,26 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 app = Flask(__name__)
 
+# Open database connection
+ db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
+ # prepare a cursor object using cursor() method
+ # Check if connection was successful
+ if db:
+   # Carry out normal procedure
+     print("Connection successful")
+ else:
+     # Terminate
+     print("Connection unsuccessful")
+ cursor = db.cursor()
+ # execute SQL query using execute() method.
+ cursor.execute("SELECT VERSION()")
+ # Fetch a single row using fetchone() method.
+ data2 = cursor.fetchone()
+ print("Conecto a la base de datos externa:")
+ print(data2)
+ cursor.execute("SET lc_time_names = 'es_ES';")
+ cursor.execute("set session sql_mode='TRADITIONAL';")
+
 def conectarDB():
   # Open database connection
   db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
