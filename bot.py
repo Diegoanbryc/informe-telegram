@@ -37,7 +37,7 @@ print(data2)
 cursor.execute("SET lc_time_names = 'es_ES';")
 cursor.execute("set session sql_mode='TRADITIONAL';")
 sql = "select count(date(fecha_calculado)),DAYNAME(date(fecha_calculado)),date(fecha_calculado),DATEDIFF(date(now()),date(fecha_calculado)),(5 * (DATEDIFF(date(curdate()), date(fecha_calculado)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(fecha_calculado)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from trabajos_lab WHERE Estado != 'Enviado' AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY) GROUP BY date(fecha_calculado) ORDER BY  DiasAtraso DESC"
-sqlinfofecha ="select NumCalculo, NumOrden, Gaveta, Estado FROM trabajos_lab where fecha_calculado like {0}" 
+sqlinfofecha ="select NumCalculo, NumOrden, Gaveta, Estado FROM trabajos_lab where fecha_calculado like {0} AND (Estado != 'Enviado' OR 'Cancelado') AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
 
 @app.route('/', methods=['POST'])
 def main():
