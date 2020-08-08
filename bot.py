@@ -75,7 +75,6 @@ def main():
         conectarDB()
         cursor.execute(sql)
         dataselect = cursor.fetchall()
-        cursor.close()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
         message_url = BOT_URL + 'sendMessage'
@@ -114,7 +113,6 @@ def main():
         conectarDB()
         cursor.execute(sqlinfofecha.format(a))
         infofecha = cursor.fetchall()
-        cursor.close()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
         message_url = BOT_URL + 'sendMessage'
