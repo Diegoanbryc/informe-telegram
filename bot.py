@@ -14,28 +14,28 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 app = Flask(__name__)
 
-# Open database connection
-db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
+def conectarDB():
+  # Open database connection
+  db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
 
-# prepare a cursor object using cursor() method
+  # prepare a cursor object using cursor() method
   # Check if connection was successful
-if db:
+  if db:
     # Carry out normal procedure
-    print("Connection successful")
-else:
-    # Terminate
-    print("Connection unsuccessful")
-cursor = db.cursor()
-# execute SQL query using execute() method.
-cursor.execute("SELECT VERSION()")
+      print("Connection successful")
+  else:
+      # Terminate
+      print("Connection unsuccessful")
+  cursor = db.cursor()
+  # execute SQL query using execute() method.
+  cursor.execute("SELECT VERSION()")
+  # Fetch a single row using fetchone() method.
+  data2 = cursor.fetchone()
+  print("Conecto a la base de datos externa:")
+  print(data2)
+  cursor.execute("SET lc_time_names = 'es_ES';")
+  cursor.execute("set session sql_mode='TRADITIONAL';")
 
-
-# Fetch a single row using fetchone() method.
-data2 = cursor.fetchone()
-print("Conecto a la base de datos externa:")
-print(data2)
-cursor.execute("SET lc_time_names = 'es_ES';")
-cursor.execute("set session sql_mode='TRADITIONAL';")
 sql = "select count(date(fecha_calculado)),DAYNAME(date(fecha_calculado)),date(fecha_calculado),DATEDIFF(date(now()),date(fecha_calculado)),(5 * (DATEDIFF(date(curdate()), date(fecha_calculado)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(fecha_calculado)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from trabajos_lab WHERE Estado != 'Enviado' AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY) GROUP BY date(fecha_calculado) ORDER BY  DiasAtraso DESC"
 sqlinfofecha ="select NumCalculo, NumOrden, Gaveta, Estado FROM trabajos_lab where fecha_calculado like {0} AND (Estado != 'Enviado' OR 'Cancelado') AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
 
@@ -52,7 +52,9 @@ def main():
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se encuentran trabajos de: ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
+        conectarDB()
         cursor.execute(sql)
+        cursor.close()
         dataselect = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cantidad | Día     | Fecha Calculado| Días de atraso|: ",}
@@ -89,7 +91,9 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
+        conectarDB()
         cursor.execute(sqlinfofecha.format(a))
+        cursor.close()
         infofecha = cursor.fetchall()
        # time.sleep(3)
         json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
