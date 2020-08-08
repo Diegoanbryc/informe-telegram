@@ -15,7 +15,7 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 app = Flask(__name__)
 
 # Open database connection
-db = MySQLdb.connect("remotemysql.com","eJ10VkV0Jh","pCSRNFAXcF","eJ10VkV0Jh" )
+db = MySQLdb.connect("ryclab.com","ryclabco","ryclabco*+2015","ryclabco_wp557" )
 
 # prepare a cursor object using cursor() method
   # Check if connection was successful
@@ -34,10 +34,10 @@ cursor.execute("SELECT VERSION()")
 data2 = cursor.fetchone()
 print("Conecto a la base de datos externa:")
 print(data2)
-cursor.execute("SET lc_time_names = 'es_ES'")
+cursor.execute("SET lc_time_names = 'es_ES';")
 cursor.execute("set session sql_mode='TRADITIONAL';")
-sql = "select count(date(OrderDate)),DAYNAME(date(OrderDate)),date(OrderDate),DATEDIFF(date(now()),date(OrderDate)),(5 * (DATEDIFF(date(curdate()), date(OrderDate)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(OrderDate)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from Estadodellab GROUP BY date(OrderDate) ORDER BY  DiasAtraso DESC"
-sqlinfofecha ="select OrderID, CommNr, TrayNumber, CASE WHEN Status = 5 THEN 'Lente terminado para biselar'  WHEN Status = 60 THEN 'Esperando Montura'  WHEN Status = 7 THEN 'Calculado' WHEN Status = 8 THEN 'Impreso el Jobticket' WHEN Status = 10 THEN 'Verificadas bases' WHEN Status = 38 THEN 'Cancelado' WHEN Status = 48 THEN 'Waiting for frame' WHEN Status = 49 THEN 'Recoger en Stock' WHEN Status = 50 THEN 'Tuotannossa' WHEN Status = 12 THEN 'ALLOY BLOCKER' WHEN Status = 13 THEN 'FREEFORM GENERATOR' WHEN Status = 14 THEN 'FREEFORM POLISH' WHEN Status = 54 THEN 'Conventional RX' WHEN Status = 15 THEN 'LASER' WHEN Status = 13 THEN 'Control de Calidad' WHEN Status = 57 THEN 'Hard Coating' WHEN Status = 59 THEN 'Entra a AR' WHEN Status = 61 THEN 'Bisel Final' WHEN Status = 61 THEN 'Bisel' WHEN Status = 19 THEN 'Bisel Final' WHEN Status = 20 THEN 'Sale de AR' WHEN Status = 64 THEN 'Control Final' WHEN Status = 65 THEN 'Enviados' WHEN Status = 66 THEN 'Factura' WHEN Status = 67 THEN 'Cancelled' WHEN Status = 42 THEN 'Error' WHEN Status = 68 THEN 'Desbloqueo' ELSE 'No aparece estado en el laboratorio' END AS Estado FROM Estadodellab where OrderDate like {0}" 
+sql = "select count(date(fecha_calculado)),DAYNAME(date(fecha_calculado)),date(fecha_calculado),DATEDIFF(date(now()),date(fecha_calculado)),(5 * (DATEDIFF(date(curdate()), date(fecha_calculado)) DIV 7) + MID('0123444401233334012222340111123400012345001234550', 7 * WEEKDAY(date(fecha_calculado)) + WEEKDAY(date(curdate())) + 1, 1)) AS DiasAtraso from trabajos_lab WHERE Estado != "Enviado" AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY) GROUP BY date(fecha_calculado) ORDER BY  DiasAtraso DESC"
+sqlinfofecha ="select NumCalculo, NumOrden, Gaveta FROM trabajos_lab where fecha_calculado like {0}" 
 
 @app.route('/', methods=['POST'])
 def main():
