@@ -28,7 +28,7 @@ def conectionDB():
       print("Connection unsuccessful")
   cursor = db.cursor()
   # execute SQL query using execute() method.
-  cursor.execute("SELECT VERSION()";)
+  cursor.execute("SELECT VERSION();")
   # Fetch a single row using fetchone() method.
   data2 = cursor.fetchone()
   print("Conecto a la base de datos externa:")
