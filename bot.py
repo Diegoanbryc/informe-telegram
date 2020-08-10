@@ -13,6 +13,7 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 
 app = Flask(__name__)
+data = request.json
 chat_id = data['message']['chat']['id']
 message = data['message']['text']
 
