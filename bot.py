@@ -16,6 +16,8 @@ app = Flask(__name__)
 
 
 def conectionDB():
+  chat_id = data['message']['chat']['id']
+  message = data['message']['text']
   # Open database connection
   db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
   # prepare a cursor object using cursor() method
@@ -56,6 +58,8 @@ def conectionDB():
   
   
 def fechaconsultaDB(a):
+  chat_id = data['message']['chat']['id']
+  message = data['message']['text']
   # Open database connection
   db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
   # prepare a cursor object using cursor() method
@@ -98,8 +102,7 @@ def main():
     data = request.json
 
     print(data)  # Comment to hide what Telegram is sending you
-    chat_id = data['message']['chat']['id']
-    message = data['message']['text']
+
 
     if message == "Informe" or message == "informe":
         print("Entro al if")
