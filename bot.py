@@ -13,7 +13,8 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 
 app = Flask(__name__)
-
+chat_id = data['message']['chat']['id']
+message = data['message']['text']
 
 def conectionDB():
   chat_id = data['message']['chat']['id']
