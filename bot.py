@@ -182,13 +182,13 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
-    elif message == "Consulta Orden":
+    elif message == "Consultar Orden":
         json_data = {"chat_id": chat_id, "text": "Para consultar el estado de una Orden, Por favor escriba la palabra: \"Orden\" y a continuación el número de Orden a consultar",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
     elif message.startswith( 'Orden ' ):
-        mensaje5a = message.find("Orden ")
+        mensaje5 = message.find("Orden ")
         Orden=print(mensaje5[5:])
         print("Información sobre la orden número: ", Orden)
         json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+Orden+": ",}
