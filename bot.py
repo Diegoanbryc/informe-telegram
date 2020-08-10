@@ -13,11 +13,10 @@ BOT_URL = f'https://api.telegram.org/bot{os.environ["BOT_KEY"]}/'
 
 
 app = Flask(__name__)
-data = request.json
-chat_id = data['message']['chat']['id']
-message = data['message']['text']
+
 
 def conectionDB():
+  data = request.json
   chat_id = data['message']['chat']['id']
   message = data['message']['text']
   # Open database connection
@@ -60,6 +59,7 @@ def conectionDB():
   
   
 def fechaconsultaDB(a):
+  data = request.json
   chat_id = data['message']['chat']['id']
   message = data['message']['text']
   # Open database connection
@@ -102,6 +102,8 @@ def fechaconsultaDB(a):
 @app.route('/', methods=['POST'])
 def main():
     data = request.json
+    chat_id = data['message']['chat']['id']
+    message = data['message']['text']
 
     print(data)  # Comment to hide what Telegram is sending you
 
