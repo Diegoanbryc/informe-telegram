@@ -189,7 +189,7 @@ def main():
         
     elif message.startswith( 'Orden ' ):
         mensaje5 = message.find("Orden ")
-        Orden=print(mensaje5[5:])
+        Orden=str(mensaje5[5:])
         print("Información sobre la orden número: ", Orden)
         json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+Orden+": ",}
         message_url = BOT_URL + 'sendMessage'
