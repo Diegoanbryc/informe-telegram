@@ -100,7 +100,7 @@ def fechaconsultaDB(a):
   cursor.close()
   
   
-def OrdenconsultaDB(Orden):
+def OrdenconsultaDB(orden):
   data = request.json
   chat_id = data['message']['chat']['id']
   message = data['message']['text']
@@ -188,12 +188,12 @@ def main():
         requests.post(message_url, json=json_data)
         
     elif message.startswith( 'Orden ' ):
-        Orden=str(message[5:])
-        print("Información sobre la orden número: ", Orden)
+        orden=str(message[5:])
+        print("Información sobre la orden número: ", orden)
         json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+Orden+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
-        OrdenconsultaDB(Orden)
+        OrdenconsultaDB(orden)
 
         
         
