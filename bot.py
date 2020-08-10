@@ -188,7 +188,7 @@ def main():
         requests.post(message_url, json=json_data)
         
     elif message.startswith( 'Orden ' ):
-        mensaje5a = menssage.find("Orden ")
+        mensaje5a = message.find("Orden ")
         Orden=print(mensaje5[5:])
         print("Información sobre la orden número: ", Orden)
         json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+Orden+": ",}
