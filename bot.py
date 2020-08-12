@@ -190,7 +190,7 @@ def main():
     elif message.startswith( 'Orden ' ):
         orden=str(message[5:])
         print("Información sobre la orden número: ", orden)
-        json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+Orden+": ",}
+        json_data = {"chat_id": chat_id, "text": "A continuación se muestran la información relacionada al número de Orden"+orden+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         OrdenconsultaDB(orden)
