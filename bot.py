@@ -123,11 +123,11 @@ def OrdenconsultaDB(orden):
   print(data2)
   cursor.execute("SET lc_time_names = 'es_ES';")
   cursor.execute("set session sql_mode='TRADITIONAL';")
-  sqlorden ="select NumCalculo, NumOrden, Gaveta, Estado FROM trabajos_lab where NumOrden like \'{0}%\' AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
+  sqlorden ="select NumCalculo, NumOrden, Gaveta, Estado, Cliente, Disenio FROM trabajos_lab where NumOrden like \'{0}%\' AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
   cursor.execute(sqlorden.format(orden))
   infofecha = cursor.fetchall()
   # time.sleep(3)
-  json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| ",}
+  json_data = {"chat_id": chat_id, "text": "|Cálculo   | Nr. Orden     | Gaveta  | Estado en el lab.| Cliente | Diseño | ",}
   message_url = BOT_URL + 'sendMessage'
   requests.post(message_url, json=json_data)
   # time.sleep(3)
@@ -135,8 +135,10 @@ def OrdenconsultaDB(orden):
       print("Calculo = ", row2[0], )
       print("Nr Orden = ", row2[1])
       print("Gaveta = ", row2[2])
-      print("Estado  = ", row2[3], "\n")
-      json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+" |  "+str(row2[2])+"  | "+str(row2[3])+"      |",}
+      print("Gaveta = ", row2[3])
+      print("Gaveta = ", row2[4])
+      print("Estado  = ", row2[5], "\n")
+      json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+" |  "+str(row2[2])+"  | "+str(row2[3])+"      | "+str(row2[4])+"      | "+str(row2[5])+"      |",}
       message_url = BOT_URL + 'sendMessage'
       requests.post(message_url, json=json_data)
   cursor.close()
