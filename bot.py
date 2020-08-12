@@ -123,7 +123,7 @@ def OrdenconsultaDB(orden):
   print(data2)
   cursor.execute("SET lc_time_names = 'es_ES';")
   cursor.execute("set session sql_mode='TRADITIONAL';")
-  sqlorden ="select NumCalculo, NumOrden, Gaveta, Estado, Cliente, Disenio FROM trabajos_lab where NumOrden like \'{0}%\' AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
+  sqlorden ="select NumCalculo, NumOrden, Gaveta, Estado, Cliente, Disenio FROM trabajos_lab where NumOrden like CONCAT({0},'%') AND date(fecha_calculado)>DATE_SUB(NOW(),INTERVAL 15 DAY)" 
   cursor.execute(sqlorden.format(orden))
   infofecha = cursor.fetchall()
   # time.sleep(3)
