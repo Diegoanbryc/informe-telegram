@@ -143,6 +143,45 @@ def OrdenconsultaDB(orden):
       requests.post(message_url, json=json_data)
   cursor.close()
   
+  def Danios():
+  data = request.json
+  chat_id = data['message']['chat']['id']
+  message = data['message']['text']
+  # Open database connection
+  db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
+  # prepare a cursor object using cursor() method
+  # Check if connection was successful
+  if db:
+    # Carry out normal procedure
+      print("Connection successful")
+  else:
+      # Terminate
+      print("Connection unsuccessful")
+  cursor = db.cursor()
+  # execute SQL query using execute() method.
+  cursor.execute("SELECT VERSION();")
+  # Fetch a single row using fetchone() method.
+  data2 = cursor.fetchone()
+  print("Conecto a la base de datos externa:")
+  print(data2)
+  cursor.execute("SET lc_time_names = 'es_ES';")
+  cursor.execute("set session sql_mode='TRADITIONAL';")
+  sql = "SELECT COUNT(fecha) AS Cantidad,Fecha FROM danios WHERE date(Fecha)>DATE_SUB(NOW(),INTERVAL 30 DAY) GROUP BY date(fecha) ORDER BY fecha DESC;"
+  cursor.execute(sql)
+  dataselect = cursor.fetchall()
+  json_data = {"chat_id": chat_id, "text": "|#Daños  | Fecha   |: ",}
+  message_url = BOT_URL + 'sendMessage'
+  requests.post(message_url, json=json_data)
+  # time.sleep(3)
+  for row in dataselect:
+      print("Cantidad de Daños = ", row[0], )
+      print("Fecha = ", row[1], "\n")
+      json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"     |  /+"Daños--"+"+str(row[1].strftime("%Y_%m_%d"))+"    |",}
+      message_url = BOT_URL + 'sendMessage'
+      requests.post(message_url, json=json_data)
+  #time.sleep(3)
+  cursor.close()
+  
 @app.route('/', methods=['POST'])
 def main():
     data = request.json
@@ -184,6 +223,7 @@ def main():
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         
+         
     elif message == "Consultar Orden":
         json_data = {"chat_id": chat_id, "text": "Para consultar el estado de una Orden, Por favor escriba la palabra: \"Orden\" y a continuación el número de Orden a consultar",}
         message_url = BOT_URL + 'sendMessage'
@@ -197,6 +237,29 @@ def main():
         requests.post(message_url, json=json_data)
         OrdenconsultaDB(orden)
 
+     elif message == "Daños" or message == "daños":
+        print("Entro al if")
+        json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se Registran los siguientes daños: ",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)
+        Danios()
+       
+        json_data = {"chat_id": chat_id, "text": "Los daños mostrados son los registrados en un periodo de 30 Días calendario.",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)  
+
+    elif message.startswith( '/Daños--' ):
+        fechaconsulta = datetime.strptime(message,"/Daños--%Y_%m_%d").date()
+        print("Va a consultar los daños registrados con fecha de:", fechaconsulta)
+        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)
+        a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
+        fechaconsultaDB(a)
+                    
+        json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra informe, para mirar de nuevo el listado de informe general.",}
+        message_url = BOT_URL + 'sendMessage'
+        requests.post(message_url, json=json_data)        
         
         
     else:
