@@ -279,7 +279,7 @@ def main():
         requests.post(message_url, json=json_data)
         OrdenconsultaDB(orden)
 
-     elif message == "Daños" or message == "daños":
+     elif message == "Danios" or message == "danios":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se Registran los siguientes daños: ",}
         message_url = BOT_URL + 'sendMessage'
@@ -300,7 +300,7 @@ def main():
         a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
         fechadanioconsultaDB(a)
                     
-        json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra Daños, para mirar de nuevo el listado de Daños.",}
+        json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra Danios, para mirar de nuevo el listado de Daños.",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)        
         
