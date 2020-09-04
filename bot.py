@@ -176,7 +176,7 @@ def Danios():
   for row in dataselect:
       print("Cantidad de Daños = ", row[0], )
       print("Fecha = ", row[1], "\n")
-      json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"     |  /+"Daños--"+"+str(row[1].strftime("%Y_%m_%d"))+"    |",}
+      json_data = {"chat_id": chat_id, "text": "|   "+str(row[0])+"     |  /"+"Daños--"+str(row[1].strftime("%Y_%m_%d"))+"    |",}
       message_url = BOT_URL + 'sendMessage'
       requests.post(message_url, json=json_data)
   #time.sleep(3)
