@@ -143,7 +143,7 @@ def OrdenconsultaDB(orden):
       requests.post(message_url, json=json_data)
   cursor.close()
   
-  def Danios():
+def Danios():
   data = request.json
   chat_id = data['message']['chat']['id']
   message = data['message']['text']
@@ -181,6 +181,48 @@ def OrdenconsultaDB(orden):
       requests.post(message_url, json=json_data)
   #time.sleep(3)
   cursor.close()
+
+  
+def fechadanioconsultaDB(a):
+  data = request.json
+  chat_id = data['message']['chat']['id']
+  message = data['message']['text']
+  # Open database connection
+  db = MySQLdb.connect("ryclab.com","ryclabco","ryclab*+2015","ryclabco_wp557" )
+  # prepare a cursor object using cursor() method
+  # Check if connection was successful
+  if db:
+    # Carry out normal procedure
+      print("Connection successful")
+  else:
+      # Terminate
+      print("Connection unsuccessful")
+  cursor = db.cursor()
+  # execute SQL query using execute() method.
+  cursor.execute("SELECT VERSION();")
+  # Fetch a single row using fetchone() method.
+  data2 = cursor.fetchone()
+  print("Conecto a la base de datos externa:")
+  print(data2)
+  cursor.execute("SET lc_time_names = 'es_ES';")
+  cursor.execute("set session sql_mode='TRADITIONAL';")
+  sqlinfofecha ="select Calculo, Descripcion FROM danios where fecha like CONCAT({0},'%')" 
+  cursor.execute(sqlinfofecha.format(a))
+  infofecha = cursor.fetchall()
+  # time.sleep(3)
+  json_data = {"chat_id": chat_id, "text": "|Cálculo   | Daño     |",}
+  message_url = BOT_URL + 'sendMessage'
+  requests.post(message_url, json=json_data)
+  # time.sleep(3)
+  for row2 in infofecha:
+      print("Calculo = ", row2[0], )
+      print("Nr Orden = ", row2[1] "\n")
+      json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+"   |",}
+      message_url = BOT_URL + 'sendMessage'
+      requests.post(message_url, json=json_data)
+  cursor.close()
+  
+  
   
 @app.route('/', methods=['POST'])
 def main():
@@ -249,15 +291,16 @@ def main():
         requests.post(message_url, json=json_data)  
 
     elif message.startswith( '/Daños--' ):
-        fechaconsulta = datetime.strptime(message,"/Daños--%Y_%m_%d").date()
+        feeecha= message.split('-',2)[2]
+        fechaconsulta = datetime.strptime(feeecha,"%Y_%m_%d").date()
         print("Va a consultar los daños registrados con fecha de:", fechaconsulta)
-        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los trabajos presentes en el laboratorio de la fecha "+message+": ",}
+        json_data = {"chat_id": chat_id, "text": "A continuación se muestran los Daños presentes en el laboratorio de la fecha "+feeecha+": ",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)
         a="'"+fechaconsulta.strftime("/%Y-%m-%d")[1:]+"%'"
-        fechaconsultaDB(a)
+        fechadanioconsultaDB(a)
                     
-        json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra informe, para mirar de nuevo el listado de informe general.",}
+        json_data = {"chat_id": chat_id, "text": "Regresa y selecciona otra fecha o escribe la palabra Daños, para mirar de nuevo el listado de Daños.",}
         message_url = BOT_URL + 'sendMessage'
         requests.post(message_url, json=json_data)        
         
