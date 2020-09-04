@@ -216,7 +216,7 @@ def fechadanioconsultaDB(a):
   # time.sleep(3)
   for row2 in infofecha:
       print("Calculo = ", row2[0], )
-      print("Nr Orden = ", row2[1] "\n")
+      print("Nr Orden = ", row2[1], "\n")
       json_data = {"chat_id": chat_id, "text": "|   "+str(row2[0])+"    | "+str(row2[1])+"   |",}
       message_url = BOT_URL + 'sendMessage'
       requests.post(message_url, json=json_data)
