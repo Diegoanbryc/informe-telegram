@@ -279,7 +279,7 @@ def main():
         requests.post(message_url, json=json_data)
         OrdenconsultaDB(orden)
 
-     elif message == "Danios" or message == "danios":
+    elif message == "Daños" or message == "daños":
         print("Entro al if")
         json_data = {"chat_id": chat_id, "text": "En el laboratorio RYC se Registran los siguientes daños: ",}
         message_url = BOT_URL + 'sendMessage'
