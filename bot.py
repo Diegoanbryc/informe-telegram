@@ -166,7 +166,7 @@ def Danios():
   print(data2)
   cursor.execute("SET lc_time_names = 'es_ES';")
   cursor.execute("set session sql_mode='TRADITIONAL';")
-  sql = "SELECT COUNT(fecha) AS Cantidad,Fecha FROM danios WHERE date(Fecha)>DATE_SUB(NOW(),INTERVAL 30 DAY) GROUP BY date(fecha) ORDER BY fecha DESC;"
+  sql = "SELECT COUNT(fecha) AS Cantidad,Fecha FROM Danios WHERE date(Fecha)>DATE_SUB(NOW(),INTERVAL 30 DAY) GROUP BY date(fecha) ORDER BY fecha DESC;"
   cursor.execute(sql)
   dataselect = cursor.fetchall()
   json_data = {"chat_id": chat_id, "text": "|#Daños  | Fecha   |: ",}
@@ -206,7 +206,7 @@ def fechadanioconsultaDB(a):
   print(data2)
   cursor.execute("SET lc_time_names = 'es_ES';")
   cursor.execute("set session sql_mode='TRADITIONAL';")
-  sqlinfofecha ="select Calculo, Descripcion FROM danios where fecha like CONCAT({0},'%')" 
+  sqlinfofecha ="select Calculo, Descripcion FROM Danios where fecha like CONCAT({0},'%')" 
   cursor.execute(sqlinfofecha.format(a))
   infofecha = cursor.fetchall()
   # time.sleep(3)
